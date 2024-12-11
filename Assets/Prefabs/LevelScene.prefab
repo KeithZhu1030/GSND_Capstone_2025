@@ -401,8 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7070421375395715997}
   m_Layer: 0
-  m_Name: "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 Environment
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"
+  m_Name: LevelScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
