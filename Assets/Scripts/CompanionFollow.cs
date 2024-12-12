@@ -71,13 +71,13 @@ public class CompanionFollow : MonoBehaviour
 
 
         //change color of object depending on currentAction
-        switch(currentAction){
-            case CurrentAction.Idle:
-                GetComponent<MeshRenderer>().material.color = Color.blue;
-                break;
-            case CurrentAction.Following:
-                GetComponent<MeshRenderer>().material.color = Color.red;
-                break;
-        }
+        // switch(currentAction){
+        //     case CurrentAction.Idle:
+        //         GetComponent<MeshRenderer>().material.color = Color.blue;
+        //         break;
+        //     case CurrentAction.Following:
+        //         GetComponent<MeshRenderer>().material.color = Color.red;
+        //         break;
+        // }
     }
 }
