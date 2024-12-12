@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ItemCollector : MonoBehaviour
 {
     public int totalItemsToCollect = 5; 
-    private int currentCollectedItems = 0; 
+    public int currentCollectedItems = 0; 
     public Text uiText; 
     public GameObject hiddenObject; 
     public Transform activationZone; 
@@ -14,7 +14,7 @@ public class ItemCollector : MonoBehaviour
     public CompanionFollow companion;
     void Start()
     {
-        UpdateUI();
+        //UpdateUI();
         if (hiddenObject != null)
         {
             hiddenObject.SetActive(false); 
@@ -42,8 +42,11 @@ public class ItemCollector : MonoBehaviour
     
     public void CollectItem()
     {
+        Debug.Log("Collected");
         currentCollectedItems++;
+        GetComponent<AudioSource>().Play();
         if(companion!=null)companion.UpdateNumCollectedSprites(currentCollectedItems);
+
         UpdateUI();
 
         if (currentCollectedItems >= totalItemsToCollect)
@@ -74,14 +77,15 @@ public class ItemCollector : MonoBehaviour
     }
 
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Collectible"))
-        {
-            CollectItem(); 
-            Destroy(other.gameObject);
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Elemental"))
+    //     {
+    //         Debug.Log("Collected");
+    //         CollectItem(); 
+    //         //Destroy(other.gameObject);
+    //     }
+    // }
 
 
     private void OnTriggerStay(Collider other)

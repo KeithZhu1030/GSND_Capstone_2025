@@ -11,6 +11,7 @@ TagManager:
   - Stair
   - WallRun
   - Collectible
+  - Elemental
   layers:
   - Default
   - TransparentFX
