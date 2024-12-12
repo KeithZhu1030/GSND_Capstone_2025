@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
-    public int totalItemsToCollect = 5; // �ܹ���Ҫ�ռ�����������
-    private int currentCollectedItems = 0; // ��ǰ���ռ�������
-    public Text uiText; // ������ʾ�ռ����ȵ�UI�ı�
-    public GameObject hiddenObject; // ���ص�����
-    public Transform activationZone; // �ض�����Ĵ�����
-    public float activationZoneRadius = 2f; // �ض�����ļ��뾶
-    private bool canActivate = false; // �Ƿ���Լ�����������
+    public int totalItemsToCollect = 5; 
+    private int currentCollectedItems = 0; 
+    public Text uiText; 
+    public GameObject hiddenObject; 
+    public Transform activationZone; 
+    public float activationZoneRadius = 2f; 
+    private bool canActivate = false; 
 
     public CompanionFollow companion;
     void Start()
@@ -17,20 +17,20 @@ public class ItemCollector : MonoBehaviour
         UpdateUI();
         if (hiddenObject != null)
         {
-            hiddenObject.SetActive(false); // ȷ�������ʼΪ����״̬
+            hiddenObject.SetActive(false); 
         }
     }
 
     void Update()
     {
-        // �������Ƿ����ض����򲢰��� E ��
+        
         if (canActivate && Input.GetKeyDown(KeyCode.E))
         {
             ActivateHiddenObject();
         }
     }
 
-    // ����UI��ʾ
+    
     void UpdateUI()
     {
         if (uiText != null)
@@ -39,7 +39,7 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
-    // �ռ�����ķ���
+    
     public void CollectItem()
     {
         currentCollectedItems++;
@@ -53,37 +53,37 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
-    // ������������
+    
     void ActivateHiddenObject()
     {
         if (hiddenObject != null)
         {
-            hiddenObject.SetActive(true); // ��ʾ��������
+            hiddenObject.SetActive(true); 
             Debug.Log("Hidden object is now visible!");
             ClearProgress();
         }
     }
 
-    // ����ռ�����
+
     void ClearProgress()
     {
         currentCollectedItems = 0;
         if(companion!=null)companion.UpdateNumCollectedSprites(currentCollectedItems);
         UpdateUI();
-        canActivate = false; // ���ü���״̬
+        canActivate = false; 
     }
 
-    // ��ײ�����������ڼ���ռ�����
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Collectible"))
         {
-            CollectItem(); // �����ռ�����ķ���
-            Destroy(other.gameObject); // ���ٱ��ռ�������
+            CollectItem(); 
+            Destroy(other.gameObject);
         }
     }
 
-    // �������Ƿ��ڼ�������
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && canActivate)

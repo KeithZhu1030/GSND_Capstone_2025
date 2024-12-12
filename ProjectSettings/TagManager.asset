@@ -10,6 +10,7 @@ TagManager:
   - Climb
   - Stair
   - WallRun
+  - Collectible
   layers:
   - Default
   - TransparentFX
