@@ -132,8 +132,8 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _density: 1
-    - _noise_scale: 0.5
+    - _density: 10
+    - _noise_scale: 1
     - _speed: 2
     - _strength: 0.5
     m_Colors:
