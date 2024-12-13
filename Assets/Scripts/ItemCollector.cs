@@ -53,18 +53,6 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
-    public void CollectItem()
-    {
-        if (currentCollectedItemsZone1 < totalItemsToCollectZone1)
-        {
-            CollectItemForZone1();
-        }
-        else if (currentCollectedItemsZone2 < totalItemsToCollectZone2)
-        {
-            CollectItemForZone2();
-        }
-    }
-
     public void CollectItemForZone1()
     {
         currentCollectedItemsZone1++;

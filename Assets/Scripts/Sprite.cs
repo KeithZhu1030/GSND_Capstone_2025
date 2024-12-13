@@ -5,48 +5,71 @@ using UnityEngine.UI;
 
 public class Sprite : MonoBehaviour
 {
-
     Canvas popUpCanvas;
     public ItemCollector player;
-
     public bool inContact = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    
+    public bool isZone1Item = true;
+
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<ItemCollector>();
+        player = GameObject.FindWithTag("Player")?.GetComponent<ItemCollector>();
+        if (player == null)
+        {
+            Debug.LogError("Player or ItemCollector script not found. Make sure the player object has the correct tag and script.");
+        }
+
         popUpCanvas = GetComponentInChildren<Canvas>();
+        if (popUpCanvas == null)
+        {
+            Debug.LogError("Canvas component not found. Ensure the object has a child with a Canvas component.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!inContact)return;
-        if(popUpCanvas!=null) popUpCanvas.transform.LookAt(Camera.main.transform);
-        if(Input.GetKeyDown(KeyCode.E)){
-            player.CollectItem();
+        if (!inContact) return;
+
+        if (popUpCanvas != null)
+            popUpCanvas.transform.LookAt(Camera.main.transform);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (isZone1Item)
+            {
+                player.CollectItemForZone1(); 
+            }
+            else
+            {
+                player.CollectItemForZone2(); 
+            }
             StartCoroutine(Collected());
-            
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Player")){
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
             inContact = true;
-            popUpCanvas.enabled = true;
+            if (popUpCanvas != null) popUpCanvas.enabled = true;
         }
     }
 
-    private IEnumerator Collected(){
-        popUpCanvas.enabled = false;
+    private IEnumerator Collected()
+    {
+        if (popUpCanvas != null) popUpCanvas.enabled = false;
         yield return new WaitForSeconds(4.5f);
         Destroy(gameObject);
     }
 
-    private void OnTriggerExit(Collider other){
-        if(other.CompareTag("Player")){
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
             inContact = false;
-            
-            popUpCanvas.enabled = false;
+            if (popUpCanvas != null) popUpCanvas.enabled = false;
         }
     }
 }
