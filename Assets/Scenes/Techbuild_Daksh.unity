@@ -3058,6 +3058,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 152650357}
+    - target: {fileID: 3702194148080892362, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
+      propertyPath: isZone1Item
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7093508710313766686, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
       propertyPath: m_Name
       value: Sprite
@@ -38983,6 +38987,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 152650357}
+    - target: {fileID: 3702194148080892362, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
+      propertyPath: isZone1Item
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7093508710313766686, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
       propertyPath: m_Name
       value: Sprite
@@ -42986,6 +42994,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 152650357}
+    - target: {fileID: 3702194148080892362, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
+      propertyPath: isZone1Item
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7093508710313766686, guid: e0598b6ce8fa37649a5da987744a7c46, type: 3}
       propertyPath: m_Name
       value: Sprite
@@ -44382,7 +44394,7 @@ PrefabInstance:
       addedObject: {fileID: 2078710047}
     - targetCorrespondingSourceObject: {fileID: 43985004378718041, guid: 9c48d1fd6bf45244a96eadfdeed449c3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2078710060}
+      addedObject: {fileID: 2078710073}
   m_SourcePrefab: {fileID: 100100000, guid: 9c48d1fd6bf45244a96eadfdeed449c3, type: 3}
 --- !u!4 &2078710021 stripped
 Transform:
@@ -44486,7 +44498,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2078710060
+--- !u!114 &2078710073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
