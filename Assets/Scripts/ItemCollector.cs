@@ -3,99 +3,146 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
-    public int totalItemsToCollect = 5; 
-    public int currentCollectedItems = 0; 
-    public Text uiText; 
-    public GameObject hiddenObject; 
-    public Transform activationZone; 
-    public float activationZoneRadius = 2f; 
-    private bool canActivate = false; 
+    public int totalItemsToCollectZone1 = 5;
+    public int totalItemsToCollectZone2 = 3;
+    public int currentCollectedItemsZone1 = 0;
+    public int currentCollectedItemsZone2 = 0;
+    public Text uiTextZone1;
+    public Text uiTextZone2;
+    public GameObject hiddenObjectZone1;
+    public GameObject hiddenObjectZone2;
+    public Transform activationZone1;
+    public Transform activationZone2;
+    public float activationZoneRadius = 2f;
+    private bool canActivateZone1 = false;
+    private bool canActivateZone2 = false;
 
     public CompanionFollow companion;
+
     void Start()
     {
-        //UpdateUI();
-        if (hiddenObject != null)
+        if (hiddenObjectZone1 != null)
         {
-            hiddenObject.SetActive(false); 
+            hiddenObjectZone1.SetActive(false);
+        }
+
+        if (hiddenObjectZone2 != null)
+        {
+            hiddenObjectZone2.SetActive(true);
         }
     }
 
     void Update()
     {
-        
-        if (canActivate && Input.GetKeyDown(KeyCode.E))
+        if (canActivateZone1 && Input.GetKeyDown(KeyCode.E))
         {
-            ActivateHiddenObject();
+            ActivateHiddenObjectZone1();
+        }
+
+        if (canActivateZone2 && Input.GetKeyDown(KeyCode.E))
+        {
+            ActivateHiddenObjectZone2();
         }
     }
 
-    
-    void UpdateUI()
+    void UpdateUI(Text uiText, int currentCollected, int totalToCollect)
     {
         if (uiText != null)
         {
-            uiText.text = "Collected: " + currentCollectedItems + " / " + totalItemsToCollect;
+            uiText.text = "Collected: " + currentCollected + " / " + totalToCollect;
         }
     }
 
-    
     public void CollectItem()
     {
-        Debug.Log("Collected");
-        currentCollectedItems++;
+        if (currentCollectedItemsZone1 < totalItemsToCollectZone1)
+        {
+            CollectItemForZone1();
+        }
+        else if (currentCollectedItemsZone2 < totalItemsToCollectZone2)
+        {
+            CollectItemForZone2();
+        }
+    }
+
+    public void CollectItemForZone1()
+    {
+        currentCollectedItemsZone1++;
         GetComponent<AudioSource>().Play();
-        if(companion!=null)companion.UpdateNumCollectedSprites(currentCollectedItems);
+        if (companion != null) companion.UpdateNumCollectedSprites(currentCollectedItemsZone1);
 
-        UpdateUI();
+        UpdateUI(uiTextZone1, currentCollectedItemsZone1, totalItemsToCollectZone1);
 
-        if (currentCollectedItems >= totalItemsToCollect)
+        if (currentCollectedItemsZone1 >= totalItemsToCollectZone1)
         {
-            canActivate = true;
-            Debug.Log("All items collected! Go to the activation zone and press 'E'.");
+            canActivateZone1 = true;
+            Debug.Log("All items for Zone 1 collected! Go to the activation zone and press 'E'.");
         }
     }
 
-    
-    void ActivateHiddenObject()
+    public void CollectItemForZone2()
     {
-        if (hiddenObject != null)
+        currentCollectedItemsZone2++;
+        GetComponent<AudioSource>().Play();
+        if (companion != null) companion.UpdateNumCollectedSprites(currentCollectedItemsZone2);
+
+        UpdateUI(uiTextZone2, currentCollectedItemsZone2, totalItemsToCollectZone2);
+
+        if (currentCollectedItemsZone2 >= totalItemsToCollectZone2)
         {
-            hiddenObject.SetActive(true); 
-            Debug.Log("Hidden object is now visible!");
-            ClearProgress();
+            canActivateZone2 = true;
+            Debug.Log("All items for Zone 2 collected! Go to the activation zone and press 'E'.");
         }
     }
 
-
-    void ClearProgress()
+    void ActivateHiddenObjectZone1()
     {
-        currentCollectedItems = 0;
-        if(companion!=null)companion.UpdateNumCollectedSprites(currentCollectedItems);
-        UpdateUI();
-        canActivate = false; 
+        if (hiddenObjectZone1 != null)
+        {
+            hiddenObjectZone1.SetActive(true);
+            Debug.Log("Hidden object in Zone 1 is now visible!");
+            ClearProgressZone1();
+        }
     }
 
-    
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Elemental"))
-    //     {
-    //         Debug.Log("Collected");
-    //         CollectItem(); 
-    //         //Destroy(other.gameObject);
-    //     }
-    // }
+    void ActivateHiddenObjectZone2()
+    {
+        if (hiddenObjectZone2 != null)
+        {
+            hiddenObjectZone2.SetActive(false);
+            Debug.Log("Hidden object in Zone 2 is now hidden!");
+            ClearProgressZone2();
+        }
+    }
 
+    void ClearProgressZone1()
+    {
+        currentCollectedItemsZone1 = 0;
+        if (companion != null) companion.UpdateNumCollectedSprites(currentCollectedItemsZone1);
+        UpdateUI(uiTextZone1, currentCollectedItemsZone1, totalItemsToCollectZone1);
+        canActivateZone1 = false;
+    }
+
+    void ClearProgressZone2()
+    {
+        currentCollectedItemsZone2 = 0;
+        if (companion != null) companion.UpdateNumCollectedSprites(currentCollectedItemsZone2);
+        UpdateUI(uiTextZone2, currentCollectedItemsZone2, totalItemsToCollectZone2);
+        canActivateZone2 = false;
+    }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && canActivate)
+        if (other.CompareTag("Player"))
         {
-
-            if (Vector3.Distance(other.transform.position, activationZone.position) <= activationZoneRadius)
+            if (canActivateZone1 && Vector3.Distance(other.transform.position, activationZone1.position) <= activationZoneRadius)
             {
-                Debug.Log("Press 'E' to activate the hidden object.");
+                Debug.Log("Press 'E' to activate the hidden object in Zone 1.");
+            }
+
+            if (canActivateZone2 && Vector3.Distance(other.transform.position, activationZone2.position) <= activationZoneRadius)
+            {
+                Debug.Log("Press 'E' to activate the hidden object in Zone 2.");
             }
         }
     }
